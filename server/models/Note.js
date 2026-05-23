@@ -2,18 +2,16 @@ const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
 
-  title:String,
+  title: String,
 
-  subject:String,
+  subject: String,
 
-  semester:Number,
+  semester: Number,
 
-  pdfUrl:String,
+  pdf: String,
 
-  uploadedBy:String,
-
-},{
-  timestamps:true,
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model("Note", noteSchema);

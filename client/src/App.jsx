@@ -9,25 +9,22 @@ import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 
 function App() {
-
   return (
     <BrowserRouter>
 
-      <Navbar />
+      <div className="min-h-screen bg-gray-100">
 
-      <Routes>
+        <Navbar />
 
-        <Route path="/" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/upload" element={<Upload />} />
+        </Routes>
 
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="/upload" element={<Upload />} />
-
-      </Routes>
+      </div>
 
     </BrowserRouter>
   );
