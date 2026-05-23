@@ -3,81 +3,105 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-exports.registerUser = async(req,res)=>{
 
-  try{
+// REGISTER USER
 
-    const {name,email,password} = req.body;
+exports.registerUser = async (req, res) => {
 
-    const userExists = await User.findOne({email});
+  try {
 
-    if(userExists){
+    const { name, email, password } = req.body;
+
+    // Check existing user
+
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
       return res.status(400).json({
-        message:"User already exists",
+        message: "User already exists",
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password,10);
+    // Hash password
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
 
     const user = await User.create({
       name,
       email,
-      password:hashedPassword,
+      password: hashedPassword,
     });
 
     res.status(201).json({
-      message:"User Registered",
+      message: "User Registered Successfully",
       user,
     });
 
-  }catch(error){
+  } catch (error) {
+
     res.status(500).json({
-      error:error.message,
+      error: error.message,
     });
+
   }
 
 };
 
-exports.loginUser = async(req,res)=>{
 
-  try{
+// LOGIN USER
 
-    const {email,password} = req.body;
+exports.loginUser = async (req, res) => {
 
-    const user = await User.findOne({email});
+  try {
 
-    if(!user){
+    const { email, password } = req.body;
+
+    // Find user
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
       return res.status(400).json({
-        message:"Invalid Email",
+        message: "Invalid Email",
       });
     }
 
-    const isMatch = await bcrypt.compare(password,user.password);
+    // Compare password
 
-    if(!isMatch){
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
       return res.status(400).json({
-        message:"Invalid Password",
+        message: "Invalid Password",
       });
     }
+
+    // Create JWT token
 
     const token = jwt.sign(
-      {id:user._id},
+      {
+        id: user._id,
+      },
       process.env.JWT_SECRET,
       {
-        expiresIn:"7d",
+        expiresIn: "7d",
       }
     );
 
     res.status(200).json({
-      message:"Login Successful",
+      message: "Login Successful",
       token,
       user,
     });
 
-  }catch(error){
+  } catch (error) {
+
     res.status(500).json({
-      error:error.message,
+      error: error.message,
     });
+
   }
 
 };
