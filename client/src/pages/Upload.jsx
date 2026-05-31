@@ -7,7 +7,7 @@ function Upload() {
   const [formData, setFormData] = useState({
     title: "",
     subject: "",
-    semester: "",
+    category: "CSE",
     pdf: null,
   });
 
@@ -37,6 +37,7 @@ function Upload() {
 
     data.append("title", formData.title);
     data.append("subject", formData.subject);
+    data.append("category", formData.category);
     data.append("semester", formData.semester);
     data.append("pdf", formData.pdf);
 
@@ -96,13 +97,27 @@ function Upload() {
           className="w-full border p-4 rounded-2xl mb-5"
         />
 
-        <input
-          type="number"
-          name="semester"
-          placeholder="Semester"
+        <select
+          name="category"
+          value={formData.category}
           onChange={handleChange}
           className="w-full border p-4 rounded-2xl mb-5"
-        />
+        >
+
+          <option value="CSE">CSE</option>
+
+          <option value="AIML">AIML</option>
+
+          <option value="IT">IT</option>
+
+          <option value="DBMS">DBMS</option>
+
+          <option value="Java">Java</option>
+
+          <option value="DSA">DSA</option>
+
+        </select>
+
 
         <input
           type="file"

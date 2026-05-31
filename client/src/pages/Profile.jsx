@@ -45,12 +45,25 @@ function Profile() {
 
 
   // FETCH NOTES
-
   const fetchNotes = async () => {
 
     try {
 
-      const res = await API.get("/notes");
+      const token =
+        localStorage.getItem("token");
+
+      const res = await API.get(
+
+        "/notes/my-notes",
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+
+      );
 
       setNotes(res.data);
 
@@ -61,7 +74,6 @@ function Profile() {
     }
 
   };
-
 
   // IMAGE UPLOAD
 

@@ -2,16 +2,41 @@ const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
 
-  title: String,
+  title: {
+    type: String,
+    required: true,
+  },
 
-  subject: String,
+  subject: {
+    type: String,
+    required: true,
+  },
 
-  semester: Number,
+  category: {
+    type: String,
+    default: "General",
+  },
 
-  pdf: String,
+  pdf: {
+    type: String,
+    required: true,
+  },
+
+  uploadedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  downloads: {
+    type: Number,
+    default: 0,
+  },
 
 }, {
   timestamps: true,
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model(
+  "Note",
+  noteSchema
+);

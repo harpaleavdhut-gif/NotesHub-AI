@@ -1,9 +1,41 @@
+import API from "../services/api";
+
 function NoteCard({ note }) {
 
-  return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+  const deleteNote = async (id) => {
 
-      {/* TOP */}
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      await API.delete(
+
+        `/notes/${id}`,
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+
+      );
+
+      window.location.reload();
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+
+  return (
+
+    <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
 
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-36 flex items-center justify-center">
 
@@ -13,62 +45,52 @@ function NoteCard({ note }) {
 
       </div>
 
-
-      {/* CONTENT */}
-
       <div className="p-6">
 
         <h2 className="text-2xl font-bold text-gray-800">
           {note.title}
         </h2>
 
-        <p className="mt-4 text-gray-600">
-          📚 Subject:
-          <span className="font-semibold ml-2">
-            {note.subject}
-          </span>
+        <p className="mt-4">
+          Subject: {note.subject}
         </p>
 
-        <p className="mt-2 text-gray-600">
-          🎓 Semester:
-          <span className="font-semibold ml-2">
-            {note.semester}
-          </span>
+        <p className="mt-2">
+          Category: {note.category}
         </p>
 
-
-        {/* BUTTONS */}
+        <p className="mt-2">
+          Downloads: {note.downloads}
+        </p>
 
         <div className="flex gap-3 mt-6">
-
-          {/* VIEW PDF */}
 
           <a
             href={`http://localhost:5000/uploads/${note.pdf}`}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 text-center bg-blue-600 text-white py-3 rounded-2xl hover:bg-blue-700 transition font-semibold"
+            className="flex-1 text-center bg-blue-600 text-white py-3 rounded-2xl"
           >
             View
           </a>
 
-
-          {/* DOWNLOAD PDF */}
-
-          <a
-            href={`http://localhost:5000/uploads/${note.pdf}`}
-            download
-            className="flex-1 text-center bg-purple-600 text-white py-3 rounded-2xl hover:bg-purple-700 transition font-semibold"
+          <button
+            onClick={() =>
+              deleteNote(note._id)
+            }
+            className="flex-1 bg-red-500 text-white py-3 rounded-2xl"
           >
-            Download
-          </a>
+            Delete
+          </button>
 
         </div>
 
       </div>
 
     </div>
+
   );
+
 }
 
 export default NoteCard;

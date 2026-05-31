@@ -33,20 +33,25 @@ exports.uploadNote = async (req, res) => {
     const {
       title,
       subject,
-      semester,
+      category,
     } = req.body;
 
-    const pdf = req.file.filename;
-
     const note = await Note.create({
+
       title,
+
       subject,
-      semester,
-      pdf,
+
+      category,
+
+      pdf: req.file.filename,
+
+      uploadedBy: req.user.id,
+
     });
 
     res.status(201).json({
-      message: "Note Uploaded",
+      message: "Note Uploaded Successfully",
       note,
     });
 
