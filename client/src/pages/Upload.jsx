@@ -42,9 +42,20 @@ function Upload() {
 
     try {
 
+      const token = localStorage.getItem("token");
+
       const res = await API.post(
+
         "/notes/upload",
-        data
+
+        data,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+
       );
 
       alert(res.data.message);

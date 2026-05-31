@@ -35,6 +35,10 @@ function Navbar() {
           Register
         </Link>
 
+        <Link className="hover:text-yellow-300 transition" to="/profile">
+          Profile
+        </Link>
+
       </div>
 
     </nav>

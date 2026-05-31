@@ -1,5 +1,7 @@
 const express = require("express");
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const multer = require("multer");
 
 const {
@@ -42,6 +44,7 @@ router.get("/", getNotes);
 
 router.post(
   "/upload",
+  authMiddleware,
   upload.single("pdf"),
   uploadNote
 );
