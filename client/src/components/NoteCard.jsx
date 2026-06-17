@@ -23,6 +23,14 @@ function NoteCard({ note }) {
     }
   };
 
+  const handleDownload = async (id) => {
+    try {
+      await API.put(`/notes/download/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100">
       {/* HEADER */}
@@ -62,22 +70,36 @@ function NoteCard({ note }) {
 
         {/* BUTTONS */}
 
-        <div className="flex gap-3 mt-6">
+        <div className="grid grid-cols-3 gap-3 mt-6">
+          {/* VIEW */}
+
           <a
             href={`http://localhost:5000/uploads/${note.pdf}`}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
+            className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
           >
-            View
+            👁 View
           </a>
+
+          {/* DOWNLOAD */}
+
+          <a
+            href={`http://localhost:5000/uploads/${note.pdf}`}
+            download
+            onClick={() => handleDownload(note._id)}
+            className="text-center bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
+          >
+            📥 Download
+          </a>
+
+          {/* DELETE */}
 
           <button
             onClick={() => deleteNote(note._id)}
-            className="flex items-center justify-center gap-2 flex-1 bg-red-500 text-white py-3 rounded-2xl font-semibold hover:bg-red-600"
+            className="bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
           >
-            <FaTrash />
-            Delete
+            🗑 Delete
           </button>
         </div>
       </div>
