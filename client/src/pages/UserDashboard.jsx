@@ -103,10 +103,47 @@ function UserDashboard() {
 
       {/* NOTES */}
 
-      <div className="mt-12">
-        <h2 className="text-3xl font-bold text-gray-800">Available Notes 📚</h2>
+      {/* NOTES */}
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <div className="mt-12">
+        {/* HEADER */}
+
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <div>
+            ```
+            <h2 className="text-4xl font-extrabold bg-gradient-to-r from-blue-700 via-purple-700 to-pink-600 bg-clip-text text-transparent">
+              📚 Available Notes
+            </h2>
+            <p className="text-gray-500 mt-2">
+              Explore study materials shared by students.
+            </p>
+            ```
+          </div>
+
+          <div className="mt-4 md:mt-0 flex gap-3">
+            <div className="bg-white px-5 py-3 rounded-2xl shadow-lg">
+              <p className="text-sm text-gray-500">Notes</p>
+
+              <h3 className="font-bold text-blue-700 text-xl">
+                {filteredNotes.length}
+              </h3>
+            </div>
+            <div className="bg-white px-5 py-3 rounded-2xl shadow-lg">
+              <p className="text-sm text-gray-500">Categories</p>
+
+              <h3 className="font-bold text-purple-700 text-xl">
+                {
+                  [...new Set(filteredNotes.map((note) => note.category))]
+                    .length
+                }
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        {/* GRID */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {filteredNotes.map((note) => (
             <NoteCard key={note._id} note={note} />
           ))}
