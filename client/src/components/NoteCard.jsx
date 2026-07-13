@@ -1,5 +1,5 @@
 import API from "../services/api";
-
+import { useState } from "react";
 import { FaBook, FaDownload, FaTrash, FaTag } from "react-icons/fa";
 
 function NoteCard({ note }) {
@@ -30,7 +30,6 @@ function NoteCard({ note }) {
       console.log(error);
     }
   };
-
   return (
     <div className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100">
       {/* HEADER */}
@@ -73,14 +72,14 @@ function NoteCard({ note }) {
         <div className="grid grid-cols-3 gap-3 mt-6">
           {/* VIEW */}
 
-          <a
-            href={`http://localhost:5000/uploads/${note.pdf}`}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={() =>
+              window.open(`http://localhost:5000/uploads/${note.pdf}`, "_blank")
+            }
             className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
           >
             👁 View
-          </a>
+          </button>
 
           {/* DOWNLOAD */}
 
