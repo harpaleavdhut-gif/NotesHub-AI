@@ -74,7 +74,7 @@ function NoteCard({ note }) {
 
           <button
             onClick={() =>
-              window.open(`http://localhost:5000/uploads/${note.pdf}`, "_blank")
+              window.open(`https://college-notes-backend-pf0h.onrender.com/uploads/${note.pdf}`, "_blank")
             }
             className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
           >
@@ -84,7 +84,7 @@ function NoteCard({ note }) {
           {/* DOWNLOAD */}
 
           <a
-            href={`http://localhost:5000/uploads/${note.pdf}`}
+            href={`https://college-notes-backend-pf0h.onrender.com/uploads/${note.pdf}`}
             download
             onClick={() => handleDownload(note._id)}
             className="text-center bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-2xl font-semibold hover:opacity-90"
